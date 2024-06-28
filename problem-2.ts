@@ -49,8 +49,8 @@ class Library {
 const library = new Library();
 
 
-const book1 = new Book("The Principles of object oriented JS", "X. Y Z", "1234567890");
-const book2 = new Book("The Basics of TyepScript", "Author", "0987654321");
+const book1 = new Book("The Principles of object oriented JS", "X. Y Z", "12345");
+const book2 = new Book("The Basics of TyepScript", "Author", "54321");
 
 // Add books to the library
 library.addBook(book1);
@@ -61,7 +61,7 @@ console.log("Added Books:");
 library.listBooks();
 
 // Find a book by ISBN
-const foundBook = library.findBookByISBN("1234567890");
+const foundBook = library.findBookByISBN("12345");
 if (foundBook) {
     console.log(`Found book: ${foundBook.getDetails()}`);
 } else {

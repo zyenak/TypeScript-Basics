@@ -10,10 +10,10 @@ interface Grade {
 interface Student {
     id: number;
     name: string;
-    grades: Grade [];
+    grades: Grade[];
 }
 
-type Students = Student []; // Students type alias
+type Students = Student[]; // Students type alias
 
 // Add Student
 const addStudent = (students: Students, student: Student): Students => {
@@ -30,13 +30,20 @@ console.log("Added student: ", students);
 
 // Add Grade
 const addGrade = (students: Students, studentId: number, grade: Grade): Students => {
-    const student = students.find(s => s.id === studentId);
-    if (student) {
+    // TODO: try catch
+    try {
+        const student = students.find(s => s.id === studentId);
+        if (!student) {
+            throw new Error(`Student with ID ${studentId} not found`);
+        }
         student.grades.push(grade);
+
+    } catch (error) {
+        console.error(error);
     }
-   
     return students;
 }
+
 
 students = addGrade(students, 1, { subject: "Computer", score: 95 });
 students = addGrade(students, 1, { subject: "Math", score: 90 });
@@ -53,7 +60,7 @@ students.forEach(student => {
 
 
 // Find studentby id
-const getStudentById = (students: Students, studentId: number): Student | null => {  
+const getStudentById = (students: Students, studentId: number): Student | null => {
     const student = students.find(s => s.id === studentId);
     return student || null;
 }
@@ -63,15 +70,15 @@ const calculateAverageGrade = (student: Student): number => {
     if (student.grades.length === 0) {
         return 0;
     }
-   
+
     const total = student.grades.reduce((sum, grade) => sum + grade.score, 0);
     const average = total / student.grades.length;
-    
+
     return average;
 }
 
 console.log("Finding the student and calculating average grade")
-const student = getStudentById(students, 1);
+const student = getStudentById(students, 2);
 if (student) {
     console.log(`Student: ${student.name}, Average Grade: ${calculateAverageGrade(student)}`);
 }
